@@ -1,19 +1,6 @@
 require 'rails_helper'
 
-describe BaseModel, type: :model do
-  ActiveRecord::Base.connection.create_table(:monkeys, force: true) do |t|
-    t.string :name
-    t.timestamps null: false
-  end
-
-  class Monkey < ApplicationRecord
-    include BaseModel
-  end
-
-  after(:each) do
-    Monkey.delete_all
-  end
-
+describe ApplicationRecord, type: :model do
   it 'should have recent scope method' do
     monkey = Monkey.create(name: 'Caesar', id: 1)
     ghost = Monkey.create(name: 'Wukong', id: 2)

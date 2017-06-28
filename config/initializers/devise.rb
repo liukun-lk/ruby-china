@@ -1,11 +1,9 @@
 # Use this hook to configure devise mailer, warden hooks and so forth. The first
 # four configuration values can also be set straight in your models.
 Devise.setup do |config|
-  config.secret_key = '899836258327a309c761fb0aeb6c4a85c2ccb0924ffce6fce4f6355d029dac7b7b96afdc1b51544f7c7a235b83cc8a41b538cf54553a690d3bbe45f9c4672ecf'
-
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in DeviseMailer.
-  config.mailer_sender = Setting.email_sender
+  config.mailer_sender = Setting.mailer_sender
 
   # Configure the class responsible to send e-mails.
   config.mailer = 'Devise::Mailer'
@@ -174,7 +172,9 @@ Devise.setup do |config|
   # If you have any extra navigational formats, like :iphone or :mobile, you
   # should add them to the navigational formats lists. Default is [:html]
   # config.navigational_formats = [:html, :iphone]
-  config.omniauth :github, Setting.github_token, Setting.github_secret
+  if Setting.has_module? :github
+    config.omniauth :github, Setting.github_token, Setting.github_secret
+  end
   # config.omniauth :open_id, :store => OpenID::Store::Filesystem.new('/tmp'), :name => 'google', :identifier => 'https://www.google.com/accounts/o8/id', :require => 'omniauth-openid'
 
   # ==> Warden configuration
